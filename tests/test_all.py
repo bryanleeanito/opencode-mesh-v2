@@ -64,6 +64,13 @@ def test_sync_status():
     assert "sync status" in out.lower() or "entries" in out
     print("[PASS] sync status")
 
+def test_mesh_integrator_list():
+    rc, out, _ = run("mesh_integrator.py", "list-kits")
+    assert rc == 0
+    assert "Available kits" in out
+    assert "waf-bypass" in out
+    print("[PASS] mesh_integrator list")
+
 if __name__ == "__main__":
     test_register()
     test_discover()
@@ -74,4 +81,4 @@ if __name__ == "__main__":
     test_share()
     test_ideas()
     test_sync_status()
-    print("\n=== SEMUA TEST LULUS (9/9) ===")
+    print("\n=== SEMUA TEST LULUS (10/10) ===")
