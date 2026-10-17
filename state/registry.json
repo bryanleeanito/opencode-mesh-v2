@@ -14,6 +14,19 @@
       "hostname": "kzldx-dexeroid-T14g1",
       "last_seen": "2026-10-17T18:53:37.896864",
       "status": "online"
+    },
+    {
+      "name": "tablet-analysis",
+      "role": "analysis",
+      "ip": "192.168.2.107",
+      "capabilities": [
+        "osint",
+        "analysis",
+        "reporting"
+      ],
+      "hostname": "localhost",
+      "last_seen": "2026-10-17T12:40:57.303098",
+      "status": "online"
     }
   ]
 }
