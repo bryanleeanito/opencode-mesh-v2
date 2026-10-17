@@ -14,6 +14,15 @@ STATE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "state
 def git_pull():
     print("[*] Pulling updates...")
     try:
+        # State lokal yang belum di-commit (mis. hasil register/broadcast)
+        # BUKAN konflik — itu bus yang belum terkirim. Commit dulu supaya
+        # `git pull --rebase` tidak menolak dengan "unstaged changes".
+        r0 = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True)
+        if r0.stdout.strip():
+            subprocess.run(["git", "add", "-A"], check=True)
+            ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            subprocess.run(["git", "commit", "-m", f"mesh-sync (pre-pull): {ts}"], check=True)
+            print("[*] state lokal di-commit dulu (pre-pull)")
         r = subprocess.run(["git", "pull", "--rebase"], capture_output=True, text=True)
         if r.returncode == 0:
             print("[+] Pull successful")
