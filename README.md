@@ -153,10 +153,13 @@ state/
   `os.uname()` → `platform.node()` (script crash di Windows); `sync --push`
   anggun saat clean. E2E 2 mesin via git terbukti (broadcast 2 arah +
   ideas + registry).
-- **2026-10-17** - TAMBAH `mesh_status.py`: presence per mesin
-  (`state/presence/<nama>.json`, epoch UTC) + sinkron otomatis
-  (`--install`: cron */15 + @reboot / schtasks ONLOGON + self-test,
-  rate-limit push 10 menit, push retry 3x, `GIT_TERMINAL_PROMPT=0`).
-  Identitas mesin di `~/.mesh_self.json` (di luar repo). Tes terisolasi
-  (clone temp — tidak lagi menulis bus asli); FIX `mesh_integrator.py`
-  `list-kits` crash (NameError variabel `w`).
+- **2026-10-17** (`a8255f5`) — TAMBAH `mesh_status.py`: presence per mesin
+  (`state/presence/<nama>.json`, epoch UTC) + sinkron otomatis, mode
+  `--local`/`--cron`/`--name`/`--install`/`--uninstall`/`--status`
+  (`--install`: cron */15 + @reboot / schtasks `MeshPresence` +
+  `MeshPresenceBoot` + self-test, rate-limit push 600 detik, push retry
+  3x, `GIT_TERMINAL_PROMPT=0`). Identitas mesin di `~/.mesh_self.json`
+  (di luar repo; override env `MESH_SELF_FILE`/`MESH_STATE_DIR`). Tes
+  terisolasi (clone temp — tidak lagi menulis bus asli), +6 tes jadi
+  16/16; FIX `mesh_integrator.py` baris 64 (`for k`→`for w`, NameError);
+  README + `MESH_INTEGRATION.md` diperbarui.
