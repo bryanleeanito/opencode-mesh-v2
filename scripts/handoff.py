@@ -7,7 +7,7 @@ Usage:
     python3 handoff.py --accept <id>
     python3 handoff.py --status <id>
 """
-import argparse, json, os, sys
+import argparse, json, os, platform, sys
 from datetime import datetime
 
 STATE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "state"))
@@ -33,7 +33,7 @@ def handoff(to, task, priority="normal"):
         "task": task,
         "priority": priority,
         "status": "pending",
-        "from": os.uname().nodename,
+        "from": platform.node(),
         "created": datetime.now().isoformat(),
     }
     handoffs.append(entry)

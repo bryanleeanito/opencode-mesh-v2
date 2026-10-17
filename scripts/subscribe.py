@@ -6,7 +6,7 @@ Usage:
     python3 subscribe.py --list
     python3 subscribe.py --unsubscribe security
 """
-import argparse, json, os, sys
+import argparse, json, os, platform, sys
 from datetime import datetime
 
 STATE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "state"))
@@ -26,7 +26,7 @@ def save_subs(subs):
 def subscribe(topic):
     subs = load_subs()
     # Remove old entry for this machine
-    machine = os.uname().nodename
+    machine = platform.node()
     subs = [s for s in subs if s["machine"] != machine]
     subs.append({
         "machine": machine,
@@ -38,7 +38,7 @@ def subscribe(topic):
 
 def unsubscribe(topic):
     subs = load_subs()
-    machine = os.uname().nodename
+    machine = platform.node()
     subs = [s for s in subs if not (s["machine"] == machine and s["topic"] == topic)]
     save_subs(subs)
     print(f"[+] Unsubscribed from: {topic}")

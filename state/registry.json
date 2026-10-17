@@ -1,0 +1,28 @@
+{
+  "machines": [
+    {
+      "name": "test-machine",
+      "role": "test",
+      "ip": "127.0.0.1",
+      "capabilities": [],
+      "hostname": "kzldx-dexeroid-T14g1",
+      "last_seen": "2026-10-17T08:05:15.726283",
+      "status": "online"
+    },
+    {
+      "name": "windows-dev",
+      "role": "development",
+      "ip": "192.168.2.104",
+      "capabilities": [
+        "dev",
+        "devops",
+        "build",
+        "deploy",
+        "automasi"
+      ],
+      "hostname": "kzldx-dexeroid-T14g1",
+      "last_seen": "2026-10-17T18:53:37.896864",
+      "status": "online"
+    }
+  ]
+}

@@ -6,7 +6,7 @@ Usage:
     python3 ideas.py --list
     python3 ideas.py --upvote <id>
 """
-import argparse, json, os, sys
+import argparse, json, os, platform, sys
 from datetime import datetime
 
 STATE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "state"))
@@ -29,7 +29,7 @@ def add_idea(text):
     entry = {
         "id": idea_id,
         "text": text,
-        "author": os.uname().nodename,
+        "author": platform.node(),
         "created": datetime.now().isoformat(),
         "upvotes": 0,
     }

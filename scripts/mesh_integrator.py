@@ -12,7 +12,7 @@ Usage:
     python3 mesh_integrator.py delegate-kit --to kali-attack --kit waf-bypass --command "..."
     python3 mesh_integrator.py mesh-status
 """
-import argparse, json, os, subprocess, sys
+import argparse, json, os, platform, subprocess, sys
 from datetime import datetime
 
 MESH_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -114,7 +114,7 @@ def delegate_kit(to_machine, kit, command):
         "kit": kit,
         "command": command,
         "status": "pending",
-        "from": os.uname().nodename,
+        "from": platform.node(),
         "created": datetime.now().isoformat(),
     }
     handoffs.append(entry)

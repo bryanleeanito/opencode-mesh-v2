@@ -7,7 +7,7 @@ Usage:
     python3 delegate.py --list
     python3 delegate.py --status <id> <status>
 """
-import argparse, json, os, sys
+import argparse, json, os, platform, sys
 from datetime import datetime
 
 STATE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "state"))
@@ -34,7 +34,7 @@ def delegate(to, task, priority="normal"):
         "priority": priority,
         "status": "pending",
         "created": datetime.now().isoformat(),
-        "from": os.uname().nodename,
+        "from": platform.node(),
     }
     tasks.append(entry)
     save_tasks(tasks)

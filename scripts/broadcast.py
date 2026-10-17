@@ -6,7 +6,7 @@ Usage:
     python3 broadcast.py --type alert --message "SQLi ditemukan!"
     python3 broadcast.py --topic security --message "Patch dulu!"
 """
-import argparse, json, os, sys
+import argparse, json, os, platform, sys
 from datetime import datetime
 
 STATE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "state"))
@@ -31,7 +31,7 @@ def broadcast(message, msg_type="info", topic=None):
         "type": msg_type,
         "topic": topic,
         "message": message,
-        "from": os.uname().nodename,
+        "from": platform.node(),
         "created": datetime.now().isoformat(),
     }
     broadcasts.append(entry)

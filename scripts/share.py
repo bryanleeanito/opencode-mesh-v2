@@ -6,7 +6,7 @@ Usage:
     python3 share.py --type clue --message "Target pakai Cloudflare"
     python3 share.py --list
 """
-import argparse, json, os, sys
+import argparse, json, os, platform, sys
 from datetime import datetime
 
 STATE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "state"))
@@ -30,7 +30,7 @@ def share(f_type, message):
         "id": f_id,
         "type": f_type,
         "message": message,
-        "author": os.uname().nodename,
+        "author": platform.node(),
         "created": datetime.now().isoformat(),
     }
     findings.append(entry)

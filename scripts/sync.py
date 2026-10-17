@@ -28,6 +28,10 @@ def git_pull():
 def git_push():
     print("[*] Pushing updates...")
     try:
+        r = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True)
+        if not r.stdout.strip():
+            print("[*] Git clean — tidak ada yang perlu di-push")
+            return True
         subprocess.run(["git", "add", "-A"], check=True)
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         subprocess.run(["git", "commit", "-m", f"mesh-sync: {timestamp}"], check=True)
