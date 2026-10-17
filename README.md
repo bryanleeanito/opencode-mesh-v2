@@ -59,6 +59,7 @@ python3 scripts/sync.py --pull
 | `share.py` | Share findings/clues |
 | `ideas.py` | Tukar pikiran |
 | `sync.py` | Sinkronisasi state |
+| `mesh_status.py` | Presence + sinkron otomatis (cron/schtasks) |
 
 ## Contoh Pemakaian
 
@@ -126,6 +127,8 @@ python3 scripts/handoff.py --list
 
 ```
 state/
+  presence/          <- presence per mesin (mesh_status.py)
+  last_error.log     <- audit gagal sync (ditulis mode cron)
   registry.json      — daftar mesin online
   tasks.json         — antrian task
   findings.json      — kumpulan temuan
@@ -150,3 +153,10 @@ state/
   `os.uname()` → `platform.node()` (script crash di Windows); `sync --push`
   anggun saat clean. E2E 2 mesin via git terbukti (broadcast 2 arah +
   ideas + registry).
+- **2026-10-17** - TAMBAH `mesh_status.py`: presence per mesin
+  (`state/presence/<nama>.json`, epoch UTC) + sinkron otomatis
+  (`--install`: cron */15 + @reboot / schtasks ONLOGON + self-test,
+  rate-limit push 10 menit, push retry 3x, `GIT_TERMINAL_PROMPT=0`).
+  Identitas mesin di `~/.mesh_self.json` (di luar repo). Tes terisolasi
+  (clone temp — tidak lagi menulis bus asli); FIX `mesh_integrator.py`
+  `list-kits` crash (NameError variabel `w`).

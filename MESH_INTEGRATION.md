@@ -28,6 +28,33 @@ python3 scripts/register.py --name "kali-attack" --role attack --ip 192.168.1.10
 python3 scripts/sync.py --pull
 ```
 
+## Auto-sync & Presence (mesh_status.py)
+
+Satu perintah sync + status siapa yang hidup. `--install` sekali di tiap
+mesin — setelah itu semua jalan otomatis (tiap 15 menit + saat boot),
+tanpa nyusun cron/manual:
+
+```bash
+# 5. Set nama mesin ini (sekali) lalu pasang auto-sync
+python3 scripts/mesh_status.py --name <nama-terdaftar>
+python3 scripts/mesh_status.py --install   # cron/schtasks + self-test
+
+# Cek presence kapan saja (pull -> update -> push -> tabel)
+python3 scripts/mesh_status.py
+
+# Mode offline / tanpa git (tabel saja)
+python3 scripts/mesh_status.py --local
+
+# Lepas auto-sync
+python3 scripts/mesh_status.py --uninstall
+```
+
+- presence per mesin: `state/presence/<nama>.json` (last_seen epoch UTC).
+- `online` = scheduler/mesin hidup, bukan user aktif; `!` = stale > 1 jam.
+- identitas mesin: `~/.mesh_self.json` (di luar repo, tidak ikut push).
+- di mode cron, push presence di-rate-limit 10 menit (hemat commit);
+  gagal sync dicatat ke `state/last_error.log`.
+
 ## Setup khusus: Tab via Termux + proot Ubuntu
 
 Tab jalanin OpenCode di **proot Ubuntu (glibc, ARM64)** — platform resmi yang

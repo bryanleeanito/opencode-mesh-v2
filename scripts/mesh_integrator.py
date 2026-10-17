@@ -61,7 +61,7 @@ def list_kits():
     print("[*] Available kits via mesh integrator")
     print()
     categories = {
-        "Ptoolsdexeroid (Pentest/CTF/Bypass)": [k for k in KIT_REGISTRY if not any(w in k for k in ["windev"])],
+        "Ptoolsdexeroid (Pentest/CTF/Bypass)": [k for k in KIT_REGISTRY if not any(w in k for w in ["windev"])],
     }
     for cat, kits in categories.items():
         print(f"--- {cat} ---")
