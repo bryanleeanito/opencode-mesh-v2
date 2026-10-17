@@ -37,8 +37,14 @@ def git_pull():
 def git_push():
     print("[*] Pushing updates...")
     try:
+        # "Clean" = working tree bersih DAN tidak ada commit lokal yang
+        # belum ter-push (porcelain saja tidak cukup — commit bisa sudah
+        # jadi tapi belum terkirim).
         r = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True)
-        if not r.stdout.strip():
+        ra = subprocess.run(["git", "rev-list", "@{upstream}..HEAD", "--count"],
+                            capture_output=True, text=True)
+        belum_push = ra.stdout.strip() not in ("0", "")
+        if not r.stdout.strip() and not belum_push:
             print("[*] Git clean — tidak ada yang perlu di-push")
             return True
         subprocess.run(["git", "add", "-A"], check=True)
