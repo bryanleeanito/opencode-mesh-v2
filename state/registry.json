@@ -1,15 +1,6 @@
 {
   "machines": [
     {
-      "name": "test-machine",
-      "role": "test",
-      "ip": "127.0.0.1",
-      "capabilities": [],
-      "hostname": "kzldx-dexeroid-T14g1",
-      "last_seen": "2026-10-17T08:05:15.726283",
-      "status": "online"
-    },
-    {
       "name": "windows-dev",
       "role": "development",
       "ip": "192.168.2.104",
@@ -22,19 +13,6 @@
       ],
       "hostname": "kzldx-dexeroid-T14g1",
       "last_seen": "2026-10-17T18:53:37.896864",
-      "status": "online"
-    },
-    {
-      "name": "blackarch-test",
-      "role": "attack",
-      "ip": "192.168.2.200",
-      "capabilities": [
-        "pentest",
-        "bypass",
-        "ctf"
-      ],
-      "hostname": "kzldx-dexeroid-T14g1",
-      "last_seen": "2026-10-17T19:03:14.870283",
       "status": "online"
     }
   ]

@@ -145,3 +145,8 @@ state/
 ## Changelog
 
 - **2026-10-16** — repo dibuat, dynamic mesh v2.
+- **2026-10-17** — FIX BUS: `state/` ikut di-track (sebelumnya gitignored
+  → broadcast/ideas/registry tak pernah sampai antar mesin); semua
+  `os.uname()` → `platform.node()` (script crash di Windows); `sync --push`
+  anggun saat clean. E2E 2 mesin via git terbukti (broadcast 2 arah +
+  ideas + registry).
