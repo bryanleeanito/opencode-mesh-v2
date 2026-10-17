@@ -1,6 +1,6 @@
 # MESH_INTEGRATION.md — Integrasi 3 Repo OpenCode Mesh
 
-Dibuat 2026-10-16.
+Dibuat 2026-10-16. Diperbarui 2026-10-17 (setup khusus Tab Termux+proot Ubuntu).
 
 ## Repo yang Diintegrasi
 
@@ -27,6 +27,52 @@ python3 scripts/register.py --name "kali-attack" --role attack --ip 192.168.1.10
 # 4. Sinkron
 python3 scripts/sync.py --pull
 ```
+
+## Setup khusus: Tab via Termux + proot Ubuntu
+
+Tab jalanin OpenCode di **proot Ubuntu (glibc, ARM64)** — platform resmi yang
+didukung OpenCode (ada binary standalone `linux-arm64`). Di DALAM proot:
+
+```bash
+# 1. Dependensi
+apt update && apt install -y git curl python3 unzip
+
+# 2. OpenCode V2 (native ARM64 glibc)
+curl -fsSL https://opencode.ai/v2/install | bash
+#   alternatif: apt install nodejs npm && npm install -g @opencode/cli
+opencode --version   # bukti terpasang
+
+# 3. Git identity + credentials (WAJIB — mesh itu git push)
+git config --global user.name "kzldx"
+git config --global user.email "kzldx@users.noreply.github.com"
+git config --global credential.helper store   # sekali ketik PAT, tersimpan
+#   alternatif: bikin SSH key -> tambah ke akun GitHub
+
+# 4. Masuk mesh
+git clone https://github.com/bryanleeanito/opencode-mesh-v2.git ~/opencode-mesh-v2
+cd ~/opencode-mesh-v2
+python3 scripts/register.py --name tablet-analysis --role analysis \
+  --ip "$(hostname -I | awk '{print $1}')" --capabilities osint,analysis,reporting
+python3 scripts/sync.py --pull
+python3 scripts/discover.py --all
+```
+
+Jebakan proot/Termux:
+
+- **Repo di `~/`, jangan `/sdcard`** — filesystem eksternal Android = noexec
+  + permission aneh, binary/script gagal jalan.
+- **Push mesh butuh auth GitHub**: transport = `git push` HTTPS. Tanpa PAT
+  (`credential.helper store`) atau SSH key, kamu bisa PULL tapi tidak bisa
+  KIRIM pesan — mesh jadi satu arah.
+- Proot tanpa systemd — OpenCode service start on-demand; kalau macet:
+  `opencode service status` / `opencode service restart`, atau fallback
+  `opencode --standalone`.
+- Supaya sesi tidak mati saat layar off: `termux-wake-lock`.
+- IP proot = IP Android (jaringan dibagikan) — `hostname -I` langsung dapat
+  IP LAN yang terlihat mesin lain.
+- Alur harian: `sync.py --pull` awal sesi → kerja/kirim pesan →
+  `sync.py --push` sebelum tutup (commit dulu kalau ada perubahan lokal,
+  lalu pull baru push).
 
 ## Cara Eksekusi Kit Lewat Mesh
 
