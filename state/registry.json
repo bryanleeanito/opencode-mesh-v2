@@ -23,6 +23,19 @@
       "hostname": "kzldx-dexeroid-T14g1",
       "last_seen": "2026-10-17T18:53:37.896864",
       "status": "online"
+    },
+    {
+      "name": "blackarch-test",
+      "role": "attack",
+      "ip": "192.168.2.200",
+      "capabilities": [
+        "pentest",
+        "bypass",
+        "ctf"
+      ],
+      "hostname": "kzldx-dexeroid-T14g1",
+      "last_seen": "2026-10-17T19:03:14.870283",
+      "status": "online"
     }
   ]
 }
