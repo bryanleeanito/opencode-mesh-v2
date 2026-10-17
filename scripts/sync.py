@@ -37,19 +37,19 @@ def git_pull():
 def git_push():
     print("[*] Pushing updates...")
     try:
-        # "Clean" = working tree bersih DAN tidak ada commit lokal yang
-        # belum ter-push (porcelain saja tidak cukup — commit bisa sudah
-        # jadi tapi belum terkirim).
+        # Alur: tree dirty -> commit dulu. Tree bersih tapi ada commit
+        # lokal belum ter-push -> langsung push. Bersih + sinkron -> selesai.
         r = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True)
-        ra = subprocess.run(["git", "rev-list", "@{upstream}..HEAD", "--count"],
-                            capture_output=True, text=True)
-        belum_push = ra.stdout.strip() not in ("0", "")
-        if not r.stdout.strip() and not belum_push:
-            print("[*] Git clean — tidak ada yang perlu di-push")
-            return True
-        subprocess.run(["git", "add", "-A"], check=True)
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        subprocess.run(["git", "commit", "-m", f"mesh-sync: {timestamp}"], check=True)
+        if r.stdout.strip():
+            subprocess.run(["git", "add", "-A"], check=True)
+            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            subprocess.run(["git", "commit", "-m", f"mesh-sync: {timestamp}"], check=True)
+        else:
+            ra = subprocess.run(["git", "rev-list", "@{upstream}..HEAD", "--count"],
+                                capture_output=True, text=True)
+            if ra.stdout.strip() == "0":
+                print("[*] Git clean — tidak ada yang perlu di-push")
+                return True
         r = subprocess.run(["git", "push"], capture_output=True, text=True)
         if r.returncode == 0:
             print("[+] Push successful")
