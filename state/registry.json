@@ -27,6 +27,22 @@
       "hostname": "localhost",
       "last_seen": "2026-10-20T05:18:29.058488",
       "status": "online"
+    },
+    {
+      "name": "kali-offensive",
+      "role": "attack",
+      "ip": "15.15.0.201",
+      "capabilities": [
+        "pentest",
+        "osint",
+        "recon",
+        "exploit",
+        "vuln-check",
+        "ctf"
+      ],
+      "hostname": "kali",
+      "last_seen": "2026-10-20T00:14:59.368129",
+      "status": "online"
     }
   ]
 }
