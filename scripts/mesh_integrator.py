@@ -23,8 +23,8 @@ PTREPO = os.environ.get("PTOOLSDEXEROID_PATH", os.path.join(os.path.dirname(MESH
 WINREPO = os.environ.get("WINDEV_SPECIALIST_PATH", os.path.join(os.path.dirname(MESH_DIR), "windev-specialist"))
 
 # Kit registry: nama kit -> path ke script
-KIT_REGISTRY = {
-    # Ptoolsdexeroid kits
+# Ptoolsdexeroid: pentest/CTF/bypass
+KIT_PT = {
     "waf-bypass": f"{PTREPO}/kits/waf-bypass/waf_bypass.py",
     "cloudflare-bypass": f"{PTREPO}/kits/cloudflare-bypass/cf_bypass.py",
     "sqli-helper": f"{PTREPO}/kits/sqli-helper/sqli_helper.py",
@@ -50,6 +50,23 @@ KIT_REGISTRY = {
     "elementor-bypass": f"{PTREPO}/kits/elementor-bypass/elementor_bypass.py",
 }
 
+# windev-specialist: dev + sysadmin untuk mesin Windows
+# Prefix "windev-" distinguishes it from Ptoolsdexeroid kits.
+KIT_WIN = {
+    "windev-env-report": f"{WINREPO}/tools/sysadmin/env_report/env_report.py",
+    "windev-jsonc-check": f"{WINREPO}/tools/dev/jsonc_check/jsonc_check.py",
+    "windev-ps51-lint": f"{WINREPO}/tools/dev/ps51_lint/ps51_lint.py",
+}
+
+# Gabungan (dipakai run-kit / delegate-kit)
+KIT_REGISTRY = {**KIT_PT, **KIT_WIN}
+
+# Kategori untuk list-kits (bukan lagi deteksi via substring nama kit)
+KATEGORI = [
+    ("Ptoolsdexeroid (Pentest/CTF/Bypass)", sorted(KIT_PT)),
+    ("windev-specialist (Windows Dev/Sysadmin)", sorted(KIT_WIN)),
+]
+
 def load_registry():
     path = os.path.join(STATE_DIR, "registry.json")
     if os.path.exists(path):
@@ -60,18 +77,15 @@ def load_registry():
 def list_kits():
     print("[*] Available kits via mesh integrator")
     print()
-    categories = {
-        "Ptoolsdexeroid (Pentest/CTF/Bypass)": [k for k in KIT_REGISTRY if not any(w in k for w in ["windev"])],
-    }
-    for cat, kits in categories.items():
+    for cat, kits in KATEGORI:
         print(f"--- {cat} ---")
-        for k in sorted(kits):
+        for k in kits:
             path = KIT_REGISTRY[k]
             exists = os.path.exists(path)
             status = "✓" if exists else "✗"
             print(f"  {status} {k}")
     print()
-    print(f"Total: {len(KIT_REGISTRY)} kits")
+    print(f"Total: {len(KIT_REGISTRY)} kits ({len(KIT_PT)} Ptoolsdexeroid + {len(KIT_WIN)} windev)")
 
 def run_kit(kit, command):
     path = KIT_REGISTRY.get(kit)
@@ -81,7 +95,8 @@ def run_kit(kit, command):
         return False
     if not os.path.exists(path):
         print(f"[-] Kit script tidak ada: {path}")
-        print(f"    Pastikan Ptoolsdexeroid di-clone di: {os.path.dirname(path)}")
+        print(f"    Clone repo sumbernya: Ptoolsdexeroid -> {PTREPO} | "
+              f"windev-specialist -> {WINREPO}")
         return False
     print(f"[*] Running kit: {kit}")
     print(f"    Command: {command}")
@@ -136,7 +151,8 @@ def mesh_status():
         caps = ", ".join(m.get("capabilities", []))
         print(f"  {m['name']:20} {m['role']:15} {m['ip']:16} [{caps}]")
     print()
-    print(f"Kits registered: {len(KIT_REGISTRY)}")
+    print(f"Kits registered: {len(KIT_REGISTRY)} "
+          f"({len(KIT_PT)} Ptoolsdexeroid + {len(KIT_WIN)} windev)")
     pt_exists = os.path.exists(PTREPO)
     win_exists = os.path.exists(WINREPO)
     print(f"Ptoolsdexeroid: {'✓' if pt_exists else '✗'} ({PTREPO})")
