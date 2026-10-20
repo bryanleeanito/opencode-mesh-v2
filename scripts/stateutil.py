@@ -133,18 +133,34 @@ def resolve_all(state_dir):
     return fixed
 
 
-def rebase_continue(repo=None):
-    """Lanjutkan rebase yang tersangkut setelah conflict di-resolve."""
-    try:
-        r = subprocess.run(
-            ["git", "rebase", "--continue"],
-            capture_output=True,
-            text=True,
-            env={**os.environ, "GIT_EDITOR": "true", "GIT_TERMINAL_PROMPT": "0"},
-        )
-        return r.returncode == 0, (r.stdout or "") + (r.stderr or "")
-    except Exception as e:
-        return False, str(e)
+def rebase_continue(repo=None, max_rounds=12):
+    """Lanjutkan rebase yang tersangkut setelah conflict di-resolve.
+    Loop: satu rebase bisa punya >1 conflict (per file). Setiap ronde:
+    resolve -> git add -> rebase --continue, sampai selesai."""
+    env = {**os.environ, "GIT_EDITOR": "true", "GIT_TERMINAL_PROMPT": "0"}
+    for rnd in range(1, max_rounds + 1):
+        try:
+            r = subprocess.run(
+                ["git", "rebase", "--continue"], capture_output=True, text=True, env=env
+            )
+        except Exception as e:
+            return False, str(e)
+        out = (r.stdout or "") + (r.stderr or "")
+        if r.returncode == 0:
+            return True, out
+        # conflict lagi -> resolve & coba lagi
+        if "could not apply" in out or "CONFLICT" in out or "You must edit all merge conflicts" in out:
+            fixed = resolve_all(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "state"))
+            subprocess.run(["git", "add", "-A"], capture_output=True, text=True, env=env)
+            if not fixed:
+                # tidak ada file state yang bisa di-resolve -> conflict di file lain
+                # (skip commit itu agar rebase tidak macet)
+                subprocess.run(["git", "rebase", "--skip"], capture_output=True, text=True, env=env)
+            continue
+        if "No rebase in progress" in out or "nothing to do" in out:
+            return True, out
+        return False, out
+    return False, "max rounds terlampaui"
 
 
 if __name__ == "__main__":
