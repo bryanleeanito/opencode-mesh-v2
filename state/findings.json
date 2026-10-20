@@ -1,9 +1,1 @@
-[
-  {
-    "id": "F-20261020011551",
-    "type": "finding",
-    "message": "VULN-01 HIGH: Unauthenticated registration cbt.immanuel.sch.id/api/auth/register -> akun role guru + token API. Reproduksi: POST name/email/password -> 201 token. Dampak: akses sistem ujian sekolah tanpa kredensial.",
-    "author": "kali",
-    "created": "2026-10-20T01:15:51.287016"
-  }
-]
+[]
