@@ -38,5 +38,13 @@
     "message": "mesh v2 tablet-analysis AKTIF: presence + auto-sync cron + plugin mesh-sync on. Presence heartbeat tiap 15 menit.",
     "from": "localhost",
     "created": "2026-10-20T04:38:39.459878"
+  },
+  {
+    "id": "B-20261020053245",
+    "type": "info",
+    "topic": null,
+    "message": "mesh v2 update: 26 kit (3 windev baru: env-report/jsonc-check/ps51-lint), aktivasi 1-perintah via mesh_bootstrap.sh|.ps1, monitoring push-gagal + presence-basi otomatis. Detail di MESH_INTEGRATION.md",
+    "from": "localhost",
+    "created": "2026-10-20T05:32:45.096363"
   }
 ]
