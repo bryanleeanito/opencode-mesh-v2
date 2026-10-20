@@ -2,12 +2,17 @@
   "name": "kali-offensive",
   "status": "online",
 <<<<<<< HEAD
+<<<<<<< HEAD
   "last_seen": 1792473537,
   "updated_iso": "2026-10-20T05:18:57.268563+00:00",
 =======
   "last_seen": 1792469715,
   "updated_iso": "2026-10-20T04:15:15.924269+00:00",
 >>>>>>> f44ccdd (mesh-sync (pre-pull): 2026-10-20 00:15:57)
+=======
+  "last_seen": 1792470604,
+  "updated_iso": "2026-10-20T04:30:04.868094+00:00",
+>>>>>>> 508bb22 (mesh-sync: 2026-10-20 00:30:04)
   "ip": "15.15.0.201",
   "hostname": "kali"
 }
