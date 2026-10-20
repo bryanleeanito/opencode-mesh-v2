@@ -9,6 +9,9 @@ Usage:
 import argparse, json, os, subprocess, sys
 from datetime import datetime
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import stateutil  # auto-resolve conflict git pada state/*.json
+
 STATE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "state"))
 
 def git_pull():
@@ -27,9 +30,27 @@ def git_pull():
         if r.returncode == 0:
             print("[+] Pull successful")
             return True
+        # --- Conflict handling (2026-10-20) ---
+        # git pull --rebase bisa menyisipkan conflict marker ke file state/*.json
+        # -> JSON rusak -> semua script mesh crash. Resolusi otomatis + lanjut rebase.
+        print("[!] Pull gagal — cek & auto-resolve conflict state...")
+        fixed = stateutil.resolve_all(STATE_DIR)
+        if fixed:
+            subprocess.run(["git", "add", "-A"], capture_output=True, text=True)
+            ok, out = stateutil.rebase_continue()
+            if ok:
+                print("[+] Conflict ter-resolve, rebase selesai")
+                r2 = subprocess.run(["git", "pull", "--rebase"], capture_output=True, text=True)
+                if r2.returncode == 0:
+                    print("[+] Pull successful (setelah resolve)")
+                    return True
+            else:
+                print(f"[-] rebase --continue gagal: {out.strip()[:300]}")
         else:
-            print(f"[-] Pull failed: {r.stderr}")
-            return False
+            print(f"[-] Pull failed: {r.stderr.strip()[:400]}")
+        # Fallback: pastikan file state minimal valid JSON agar mesh tidak crash
+        stateutil.resolve_all(STATE_DIR)
+        return False
     except Exception as e:
         print(f"[-] Error: {e}")
         return False
