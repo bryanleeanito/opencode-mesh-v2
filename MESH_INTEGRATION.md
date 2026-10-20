@@ -86,11 +86,28 @@ python3 scripts/discover.py --all
 
 Jebakan proot/Termux:
 
+- **Cron daemon tidak auto hidup.** Proot tanpa systemd → `crontab` yang
+  terpasang tidak dieksekusi apa pun. Jalankan `/usr/sbin/cron` manual.
+  Fix permanen (taruh di `~/.bashrc` agar hidup tiap `proot-distro login`):
+  ```bash
+  if [ -x /usr/sbin/cron ] && ! pgrep -x cron >/dev/null 2>&1; then
+    /usr/sbin/cron 2>/dev/null
+  fi
+  ```
+  Verifikasi: `ps -ef | grep [s]bin/cron` (ada proses = cron hidup).
+- **`%` di crontab berarti baris baru.** `date '+%H:%M:%S'` jadi dua
+  perintah dan job gagal tanpa error terlihat. Escape pakai `\%` atau
+  `date +\%H:\%M:\%S`.
+- **Tidak ada syslog/MTA di proot** → output job cron di-"discard", jadi
+  error cron tidak muncul. Pantau `state/last_error.log` (ditulis
+  `mesh_status.py`) dan `state/presence/<nama>.json`.
+- **`pkill -f 'cron -f'` bisa membunuh shell sendiri** (pattern match ke
+  command line). Pakai `pkill -x cron`.
 - **Repo di `~/`, jangan `/sdcard`** — filesystem eksternal Android = noexec
   + permission aneh, binary/script gagal jalan.
 - **Push mesh butuh auth GitHub**: transport = `git push` HTTPS. Tanpa PAT
   (`credential.helper store`) atau SSH key, kamu bisa PULL tapi tidak bisa
-  KIRIM pesan — mesh jadi satu arah.
+  KIRIM pesan — mesh jadi satu arah. Cek cepat: `git push --dry-run origin HEAD`.
 - Proot tanpa systemd — OpenCode service start on-demand; kalau macet:
   `opencode service status` / `opencode service restart`, atau fallback
   `opencode --standalone`.
@@ -100,6 +117,21 @@ Jebakan proot/Termux:
 - Alur harian: `sync.py --pull` awal sesi → kerja/kirim pesan →
   `sync.py --push` sebelum tutup (commit dulu kalau ada perubahan lokal,
   lalu pull baru push).
+
+## Integrasi ke OpenCode (plugin `mesh-sync`)
+
+Plugin di `~/.config/opencode/plugins/mesh-sync/index.ts` (pola default
+export `{ id, setup }`, sama seperti plugin audit-log/disk-guard):
+
+- hook `context` → menyuntik ringkasan mesh ke system prompt: daftar
+  mesin + status online/offline + pesan broadcast terakhir (max 1×/10 menit
+  supaya hemat token);
+- hook `prompt` → presence ping ke mesh (spawn detached `mesh_status.py
+  --cron`, max 1×/10 menit, tidak pernah memblokir request);
+- jejak di `~/.local/share/opencode/mesh-sync.log`.
+
+Regenerasi/matikan: hapus folder plugin itu (atau `mv` ke luar
+`plugins/`), lalu restart OpenCode.
 
 ## Cara Eksekusi Kit Lewat Mesh
 

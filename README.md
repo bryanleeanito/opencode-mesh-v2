@@ -163,3 +163,10 @@ state/
   terisolasi (clone temp — tidak lagi menulis bus asli), +6 tes jadi
   16/16; FIX `mesh_integrator.py` baris 64 (`for k`→`for w`, NameError);
   README + `MESH_INTEGRATION.md` diperbarui.
+- **2026-10-20** — FIX `mesh_status.py` tanpa argumen: dulu print help,
+  sekarang jalankan alur penuh (pull → presence → push → tabel) sesuai
+  docstring. Dokumen jebakan proot: cron daemon tidak auto hidup di
+  proot (harus `/usr/sbin/cron`, autostart via `~/.bashrc`), dan `%` di
+  crontab = karakter baris baru (job gagal diam-diam). Plugin OpenCode
+  `mesh-sync` menyuntik status mesh ke system prompt + presence ping
+  per prompt. Detail: `MESH_INTEGRATION.md`.
