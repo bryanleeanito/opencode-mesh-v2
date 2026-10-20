@@ -18,14 +18,14 @@
     {
       "name": "tablet-analysis",
       "role": "analysis",
-      "ip": "192.168.2.107",
+      "ip": "15.15.0.205",
       "capabilities": [
         "osint",
         "analysis",
         "reporting"
       ],
       "hostname": "localhost",
-      "last_seen": "2026-10-17T13:10:22.292928",
+      "last_seen": "2026-10-20T04:13:09.382732",
       "status": "online"
     }
   ]
