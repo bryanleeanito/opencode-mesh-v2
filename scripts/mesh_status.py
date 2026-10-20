@@ -379,9 +379,7 @@ def parse_args(argv):
 
 def main():
     argv = sys.argv[1:]
-    if not argv:
-        print(__doc__)
-        return 0
+    # Tanpa argumen = alur penuh (pull -> presence -> push -> tabel), sesuai docstring.
     o = parse_args(argv)
     if o is None:
         print(__doc__)
