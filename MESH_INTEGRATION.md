@@ -10,7 +10,45 @@ Dibuat 2026-10-16. Diperbarui 2026-10-17 (setup khusus Tab Termux+proot Ubuntu).
 | `windev-specialist` | Windows dev toolkit | `../windev-specialist/` |
 | `opencode-mesh-v2` | Koordinasi mesh (ini) | `.` |
 
-## Setup di Setiap Mesin
+## Aktivasi 1 Perintah (disarankan)
+
+Daripada 7 langkah manual, ada bootstrap script yang idempoten (aman
+diulang, yang sudah beres tidak diulang).
+
+**Linux / macOS / Termux-proot:**
+
+```bash
+git clone https://github.com/bryanleeanito/opencode-mesh-v2.git
+cd opencode-mesh-v2
+bash scripts/mesh_bootstrap.sh --name <nama-mesin> --role <role> \
+  --ip <ip> --capabilities <a,b,c> --with-kits
+```
+
+**Windows (PowerShell):**
+
+```powershell
+git clone https://github.com/bryanleeanito/opencode-mesh-v2.git
+cd opencode-mesh-v2
+powershell -ExecutionPolicy Bypass -File scripts\mesh_bootstrap.ps1 `
+  -Name <nama-mesin> -Role <role> -Ip <ip> -Capabilities <a,b,c> -WithKits
+```
+
+Yang dilakukan bootstrap:
+
+| # | Langkah | Catatan |
+|---|---|---|
+| 1 | Cek/clone repo mesh | skip kalau sudah lengkap |
+| 2 | Clone repo kit (`--with-kits`) | Ptoolsdexeroid + windev-specialist |
+| 3 | Cek kredensial git | `credential.helper=store` → push 2 arah |
+| 4 | Register mesin | skip dengan `--skip-register` |
+| 5 | Set identitas + presence | `~/.mesh_self.json` |
+| 6 | Pasang auto-sync | cron `*/15` + `@reboot` / schtasks + self-test |
+| 7 | Nyalakan cron daemon | Linux/proot: `pgrep -x cron` + autostart `~/.bashrc` |
+| 8 | Verifikasi | crontab, daemon, presence, `git push --dry-run` |
+
+Role yang dipakai: `attack`, `analysis`, `development`, `pentest`, `ctf`.
+
+## Setup di Setiap Mesin (manual)
 
 ```bash
 # 1. Clone semua repo
@@ -128,6 +166,10 @@ export `{ id, setup }`, sama seperti plugin audit-log/disk-guard):
   supaya hemat token);
 - hook `prompt` → presence ping ke mesh (spawn detached `mesh_status.py
   --cron`, max 1×/10 menit, tidak pernah memblokir request);
+- monitoring: push gagal (`state/last_error.log`) dan presence basi
+  > 20 menit (indikasi cron daemon mati) dilaporkan sebagai baris
+  PERINGATAN di system prompt — penting karena proot tidak punya syslog,
+  kegagalan sync kalau tidak dicek ini senyap;
 - jejak di `~/.local/share/opencode/mesh-sync.log`.
 
 Regenerasi/matikan: hapus folder plugin itu (atau `mv` ke luar
@@ -139,6 +181,8 @@ Regenerasi/matikan: hapus folder plugin itu (atau `mv` ke luar
 ```bash
 python3 scripts/mesh_integrator.py list-kits
 ```
+Total 26 kit: 23 Ptoolsdexeroid (pentest/CTF/bypass) + 3 windev-specialist
+(`windev-env-report`, `windev-jsonc-check`, `windev-ps51-lint`).
 
 ### 2. Jalankan kit langsung
 ```bash

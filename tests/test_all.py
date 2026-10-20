@@ -198,6 +198,27 @@ def test_mesh_status_umur():
     assert mod.umur_str(1000, 900) == "baru saja"    # negatif di-clamp
     print("[PASS] mesh status umur")
 
+def test_mesh_integrator_windev():
+    # Kit windev-specialist harus ter-expose lewat mesh integrator
+    # (repo windev ada di sibling dir, path bisa di-override env).
+    rc, out, _ = run("mesh_integrator.py", "list-kits")
+    assert rc == 0
+    assert "windev-specialist" in out
+    for kit in ("windev-env-report", "windev-jsonc-check", "windev-ps51-lint"):
+        assert kit in out, f"kit {kit} tidak terdaftar"
+    print("[PASS] mesh_integrator windev kits")
+
+def test_bootstrap_scripts():
+    # Skrip bootstrap harus ada + executable (dipakai mesin lain untuk aktif 1 perintah)
+    sh = os.path.join(MESH_DIR, "scripts", "mesh_bootstrap.sh")
+    ps1 = os.path.join(MESH_DIR, "scripts", "mesh_bootstrap.ps1")
+    assert os.path.isfile(sh), "mesh_bootstrap.sh hilang"
+    assert os.path.isfile(ps1), "mesh_bootstrap.ps1 hilang"
+    assert os.access(sh, os.X_OK), "mesh_bootstrap.sh tidak executable"
+    isi = open(sh, encoding="utf8").read()
+    assert "--name" in isi and "mesh_status.py" in isi
+    print("[PASS] bootstrap scripts")
+
 if __name__ == "__main__":
     import shutil
     try:
@@ -211,13 +232,15 @@ if __name__ == "__main__":
         test_ideas()
         test_sync_status()
         test_mesh_integrator_list()
+        test_mesh_integrator_windev()
+        test_bootstrap_scripts()
         test_mesh_status_set_name()
         test_mesh_status_unknown_name()
         test_mesh_status_missing_self()
         test_mesh_status_tabel()
         test_mesh_status_rate_limit()
         test_mesh_status_umur()
-        print("\n=== SEMUA TEST LULUS (16/16) ===")
+        print("\n=== SEMUA TEST LULUS (18/18) ===")
     finally:
         if _RUN_DIR:
             shutil.rmtree(_RUN_DIR, ignore_errors=True)

@@ -32,6 +32,14 @@ Dibuat 2026-10-16.
 ## Quick Start (WAJIB di setiap mesin)
 
 ```bash
+# 0. (BARU) Aktivasi 1 perintah — register + presence + auto-sync + verifikasi
+bash scripts/mesh_bootstrap.sh --name "kali-attack" --role attack \
+  --ip 192.168.1.100 --capabilities pentest,bypass,exploit --with-kits
+# Windows:
+powershell -ExecutionPolicy Bypass -File scripts\mesh_bootstrap.ps1 `
+  -Name windows-dev -Role development -Ip 192.168.2.104 -Capabilities dev,devops,build,deploy,automasi
+
+# Manual (kalau mau langkah demi langkah)
 # 1. Clone repo
 git clone https://github.com/bryanleeanito/opencode-mesh-v2.git
 cd opencode-mesh-v2
@@ -50,6 +58,8 @@ python3 scripts/sync.py --pull
 
 | Script | Fungsi |
 |---|---|
+| `mesh_bootstrap.sh` | **Aktivasi mesh 1 perintah** (Linux/macOS/proot) — register, presence, cron, verifikasi |
+| `mesh_bootstrap.ps1` | Aktivasi mesh 1 perintah (Windows) — schtasks + verifikasi |
 | `register.py` | Daftar mesin ini ke mesh |
 | `discover.py` | Lihat semua mesin online |
 | `broadcast.py` | Kirim pesan ke semua mesin |
@@ -60,6 +70,7 @@ python3 scripts/sync.py --pull
 | `ideas.py` | Tukar pikiran |
 | `sync.py` | Sinkronisasi state |
 | `mesh_status.py` | Presence + sinkron otomatis (cron/schtasks) |
+| `mesh_integrator.py` | Jalankan kit Ptoolsdexeroid/windev dari mesh (26 kit) |
 
 ## Contoh Pemakaian
 
@@ -170,3 +181,14 @@ state/
   crontab = karakter baris baru (job gagal diam-diam). Plugin OpenCode
   `mesh-sync` menyuntik status mesh ke system prompt + presence ping
   per prompt. Detail: `MESH_INTEGRATION.md`.
+- **2026-10-20** ( lanjutan ) — **Aktivasi 1 perintah** untuk mesin lain:
+  `scripts/mesh_bootstrap.sh` (Linux/macOS/proot) + `scripts/mesh_bootstrap.ps1`
+  (Windows) — idempoten, isi: cek/clone repo + repo kit, cek kredensial
+  git, register, set identitas, pasang auto-sync (cron/schtasks + self-test),
+  nyalakan cron daemon + autostart `~/.bashrc`, verifikasi (crontab, daemon,
+  presence, push dry-run). Kit windev-specialist sekarang **ter-expose** di
+  `mesh_integrator.py` (3 kit: `windev-env-report`, `windev-jsonc-check`,
+  `windev-ps51-lint`; total 26 kit — kategori dipisah eksplisit, bukan deteksi
+  substring). Plugin `mesh-sync` tambah monitoring: push gagal
+  (`state/last_error.log`) + presence basi (indikasi cron daemon mati)
+  dilaporkan ke system prompt. Tes 16/16 → **18/18**.
