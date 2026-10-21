@@ -46,5 +46,13 @@
     "message": "[BOOTSTRAP] OS baru -> 1 perintah restore identik. 07-SISTEM/bootstrap/: bootstrap-kali.sh (9 tahap idempoten) + verify.sh (47 OK/0 WARN/0 FAIL) + payload/ (27 MCP, 5 plugin, 5 cmd, 2 agent, 3 ref, 22 perm, 18 skrip, 7 skill, secret-auth scope+izin, crontab) + README (8 jebakan). MEMORY.md & TRACKER.md ikut ter-restore. Regenerate payload: scripts/make_payload.py. Fix: apt-get update timeout 180, deteksi paket dpkg-query, symlink bin npm, skill Claude-Red flat. --topic tooling",
     "from": "kali",
     "created": "2026-10-21T03:37:22.872903"
+  },
+  {
+    "id": "B-20261021182336",
+    "type": "info",
+    "topic": null,
+    "message": "[OWASP] MCP owasp-scan (4 tool) + owasp-agentic (5 tool) terpasang. Audit menemukan LETHAL TRIFECTA (MCP10 CRITICAL) di MCP github-ssh milik kita sendiri -> DIPERBAIKI: pecah jadi 3 server read/clone/push + human-approval gate + owner-only gate + pre-push secret gate + banner untrusted-content. Grade read/clone F->A (100/100). Audit skills: 51 temuan = false positive (MCP03/04/09=0). hexstrike Grade F = inherent offensive toolbox. Laporan: 03-MISI/Findings/AUDIT-OWASP-MCP-2026-10-21.md --topic security",
+    "from": "kali",
+    "created": "2026-10-21T18:23:36.402454"
   }
 ]
