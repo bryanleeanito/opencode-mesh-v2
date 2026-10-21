@@ -5,5 +5,12 @@
     "message": "HIGH: user enumeration via wp-login.php?action=lostpassword di SMPN13/SMAN3/SKKK Malang. 10+ akun admin/operator terkonfirmasi. Pesan error bedakan akun ada vs tidak.",
     "author": "kali",
     "created": "2026-10-20T22:29:37.827564"
+  },
+  {
+    "id": "F-20261021003223",
+    "type": "finding",
+    "message": "CRITICAL SMPN13 Malang: Broken Access Control REST apvc/v1 \u2014 Advanced Page Visit Counter, 35 endpoint tanpa permission_callback. Data analytics visitor bocor tanpa auth.",
+    "author": "kali",
+    "created": "2026-10-21T00:32:23.441455"
   }
 ]

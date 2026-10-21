@@ -47,7 +47,7 @@
     {
       "name": "kali-kernel",
       "role": "kernel",
-      "ip": "192.168.14.99",
+      "ip": "15.15.0.201",
       "capabilities": [
         "kernel",
         "kbuild",
@@ -57,7 +57,8 @@
       ],
       "hostname": "kali",
       "last_seen": "2026-10-20T23:46:52.557259",
-      "status": "online"
+      "status": "online",
+      "ip_note": "DHCP \u2014 berubah antara jaringan (sekolah/rumah). IP live: state/presence/kali-kernel.json"
     }
   ]
 }

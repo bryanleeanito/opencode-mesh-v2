@@ -6,5 +6,13 @@
     "message": "[MALANG 6 SEKOLAH] User enumeration via reset password (SMPN13: 10 akun, SMAN3: 8 akun, SKKK: admin@skkkmalang). WP REST user/media terbuka (Kartika41: admin/nurex/smkkartika). Sheet absensi SMAN1 PUBLIK 3.807 baris 85 nama. Form PPDB SKKK publik collector PII. Open recursive DNS MikroTik (amplif 23x, resolve IP privat). Laporan: 03-MISI/Findings/RECON-SEKOLAH-MALANG-2026-10-20.md --topic security",
     "from": "kali",
     "created": "2026-10-20T22:29:37.792751"
+  },
+  {
+    "id": "B-20261021003223",
+    "type": "info",
+    "topic": null,
+    "message": "[MALANG] BREAKTHROUGH: SMPN13 Malang REST apvc/v1 (plugin Advanced Page Visit Counter) 35 route TANPA AUTH. Bocor analitik 12.254 views/21.810 record, mobile 2.917 visitor, Malang 4.681. Endpoint tulis+reset_everything reachable (stored XSS + hapus data). PHP 7.4.33 EOL. Laporan: 03-MISI/Findings/PENTEST-SMPN13-MALANG-2026-10-21.md --topic security",
+    "from": "kali",
+    "created": "2026-10-21T00:32:23.408118"
   }
 ]
