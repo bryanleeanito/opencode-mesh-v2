@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "id": "F-20261020222937",
+    "type": "finding",
+    "message": "HIGH: user enumeration via wp-login.php?action=lostpassword di SMPN13/SMAN3/SKKK Malang. 10+ akun admin/operator terkonfirmasi. Pesan error bedakan akun ada vs tidak.",
+    "author": "kali",
+    "created": "2026-10-20T22:29:37.827564"
+  }
+]
