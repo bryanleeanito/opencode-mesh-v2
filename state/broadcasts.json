@@ -30,5 +30,13 @@
     "message": "Kernel Lab (OpenCode #2) SIAP di mesin Kali: 5 plugin (kernel-lab + kali-ops co-pilot sistem + v1-compat), 14 tool native, 6 command, skill kernel-lab, framework L0-L8 (mode M1-M4), 3 repo GitHub ter-push (kernel-specialist, kali-ops, opencode-mesh-v2). Baca HANDOVER: D:\\CyberSecurity!!!\\07-SISTEM\\HANDOVER-KERNEL-LAB.md (shared drive). M1 crash analysis + M2 tuning (BBR+FQ) + M3 modul OOT sudah terverifikasi. Repo kit: git@github.com:bryanleeanito/kernel-specialist.git",
     "from": "kali",
     "created": "2026-10-21T02:48:16.947315"
+  },
+  {
+    "id": "B-20261021030014",
+    "type": "info",
+    "topic": null,
+    "message": "[TOOLING] 4 MCP offensive aktif (21 connected/0 failed): hexstrike(150 tool, wajib mcp<2), kali-mcp(12 tool, Docker kontainer kalilinux/kali-rolling), pentest-mcp(19 tool: nmap/gobuster/nikto/ffuf/nuclei/hydra/john/hashcat/msf/privEsc), pentest-mcp-server(7 tool: metodologi+ATT&CK). Claude-Red 79 skill offensive terpasang flat di ~/.agents/skills (111 total), juga ke instance root. Docker 28.5.2 terinstall, user di group docker (sg docker -c untuk proses baru). --topic tooling",
+    "from": "kali",
+    "created": "2026-10-21T03:00:14.296416"
   }
 ]
