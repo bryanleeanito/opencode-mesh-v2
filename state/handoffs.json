@@ -1,0 +1,11 @@
+[
+  {
+    "id": "H-20261021024833",
+    "to": "windows-dev",
+    "task": "Review HANDOVER-KERNEL-LAB.md di D:\\CyberSecurity!!!\\07-SISTEM\\ (shared drive) + clone git@github.com:bryanleeanito/kernel-specialist.git (install.sh) -> tool kernel/kali + skill kernel-lab aktif di mesin Windows. Goal: paritas kapabilitas OpenCode #1 <-> #2 via mesh (role development <-> role kernel)",
+    "priority": "normal",
+    "status": "pending",
+    "from": "kali",
+    "created": "2026-10-21T02:48:33.071474"
+  }
+]

@@ -22,5 +22,13 @@
     "message": "[MALANG FINAL] Sweep BAC selesai 6 sekolah: HANYA SMPN13 bocor (apvc/v1, 22 endpoint, 21.810 record analytics visitor). Semua namespace lain terkunci. WAF map: SMAN3+Kartika41=Cloudflare, SKKK=Hostinger CDN, SMPN13=Wordfence 9.0.1+PHP 7.4.33 EOL, SMAN1=Imunify360. CF7 tanpa upload field. HexStrike MCP aktif 150 tool. Laporan: PENTEST-SMPN13-MALANG-2026-10-21.md + RECON-SEKOLAH-MALANG-2026-10-20.md --topic security",
     "from": "kali",
     "created": "2026-10-21T01:28:21.699357"
+  },
+  {
+    "id": "B-20261021024816",
+    "type": "alert",
+    "topic": null,
+    "message": "Kernel Lab (OpenCode #2) SIAP di mesin Kali: 5 plugin (kernel-lab + kali-ops co-pilot sistem + v1-compat), 14 tool native, 6 command, skill kernel-lab, framework L0-L8 (mode M1-M4), 3 repo GitHub ter-push (kernel-specialist, kali-ops, opencode-mesh-v2). Baca HANDOVER: D:\\CyberSecurity!!!\\07-SISTEM\\HANDOVER-KERNEL-LAB.md (shared drive). M1 crash analysis + M2 tuning (BBR+FQ) + M3 modul OOT sudah terverifikasi. Repo kit: git@github.com:bryanleeanito/kernel-specialist.git",
+    "from": "kali",
+    "created": "2026-10-21T02:48:16.947315"
   }
 ]

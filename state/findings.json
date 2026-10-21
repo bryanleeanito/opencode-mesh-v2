@@ -19,5 +19,12 @@
     "message": "CRITICAL SMPN13 Malang: APVC REST 22 endpoint tanpa auth (bocor analytics 21.810 record + write endpoint). CAPA: patch/hapus plugin + permission_callback per route.",
     "author": "kali",
     "created": "2026-10-21T01:28:21.755204"
+  },
+  {
+    "id": "F-20261021024833",
+    "type": "clue",
+    "message": "Pelajaran OpenCode v2: plugin API V1 gagal load (Missing key at [default]) - butuh default export {id, setup(ctx)}; pakai adapter v1-compat atau paket yg punya v2-bridge. Config V1->V2: permission->permissions, bash->shell, task->subagent, mcp->mcp.servers, plugin->plugins. Guardrail: anchor pola ke posisi perintah + buang isi heredoc (dokumentasi yg menyebut mkfs tak boleh kena deny). Fine-grained PAT tak bisa write -> pakai SSH key. API kernel 7.1: struct new_utsname+utsname(), single_open(), __DATE__ dilarang.",
+    "author": "kali",
+    "created": "2026-10-21T02:48:33.040090"
   }
 ]
