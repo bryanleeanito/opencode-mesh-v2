@@ -1,8 +1,8 @@
 {
   "name": "kali-kernel",
   "status": "online",
-  "last_seen": 1792621801,
-  "updated_iso": "2026-10-21T22:30:01.356129+00:00",
-  "ip": "192.168.2.104",
+  "last_seen": 1792622701,
+  "updated_iso": "2026-10-21T22:45:01.671419+00:00",
+  "ip": "172.16.0.2",
   "hostname": "kali"
 }
