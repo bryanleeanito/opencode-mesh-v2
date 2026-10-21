@@ -43,6 +43,21 @@
       "hostname": "kali",
       "last_seen": "2026-10-20T00:14:59.368129",
       "status": "online"
+    },
+    {
+      "name": "kali-kernel",
+      "role": "kernel",
+      "ip": "192.168.14.99",
+      "capabilities": [
+        "kernel",
+        "kbuild",
+        "driver",
+        "perf",
+        "debug"
+      ],
+      "hostname": "kali",
+      "last_seen": "2026-10-20T23:46:52.557259",
+      "status": "online"
     }
   ]
 }
