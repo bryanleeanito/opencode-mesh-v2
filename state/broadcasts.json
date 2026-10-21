@@ -38,5 +38,13 @@
     "message": "[TOOLING] 4 MCP offensive aktif (21 connected/0 failed): hexstrike(150 tool, wajib mcp<2), kali-mcp(12 tool, Docker kontainer kalilinux/kali-rolling), pentest-mcp(19 tool: nmap/gobuster/nikto/ffuf/nuclei/hydra/john/hashcat/msf/privEsc), pentest-mcp-server(7 tool: metodologi+ATT&CK). Claude-Red 79 skill offensive terpasang flat di ~/.agents/skills (111 total), juga ke instance root. Docker 28.5.2 terinstall, user di group docker (sg docker -c untuk proses baru). --topic tooling",
     "from": "kali",
     "created": "2026-10-21T03:00:14.296416"
+  },
+  {
+    "id": "B-20261021033722",
+    "type": "info",
+    "topic": null,
+    "message": "[BOOTSTRAP] OS baru -> 1 perintah restore identik. 07-SISTEM/bootstrap/: bootstrap-kali.sh (9 tahap idempoten) + verify.sh (47 OK/0 WARN/0 FAIL) + payload/ (27 MCP, 5 plugin, 5 cmd, 2 agent, 3 ref, 22 perm, 18 skrip, 7 skill, secret-auth scope+izin, crontab) + README (8 jebakan). MEMORY.md & TRACKER.md ikut ter-restore. Regenerate payload: scripts/make_payload.py. Fix: apt-get update timeout 180, deteksi paket dpkg-query, symlink bin npm, skill Claude-Red flat. --topic tooling",
+    "from": "kali",
+    "created": "2026-10-21T03:37:22.872903"
   }
 ]
