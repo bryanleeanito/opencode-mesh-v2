@@ -12,5 +12,12 @@
     "message": "CRITICAL SMPN13 Malang: Broken Access Control REST apvc/v1 \u2014 Advanced Page Visit Counter, 35 endpoint tanpa permission_callback. Data analytics visitor bocor tanpa auth.",
     "author": "kali",
     "created": "2026-10-21T00:32:23.441455"
+  },
+  {
+    "id": "F-20261021012821",
+    "type": "finding",
+    "message": "CRITICAL SMPN13 Malang: APVC REST 22 endpoint tanpa auth (bocor analytics 21.810 record + write endpoint). CAPA: patch/hapus plugin + permission_callback per route.",
+    "author": "kali",
+    "created": "2026-10-21T01:28:21.755204"
   }
 ]

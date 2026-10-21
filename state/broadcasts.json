@@ -14,5 +14,13 @@
     "message": "[MALANG] BREAKTHROUGH: SMPN13 Malang REST apvc/v1 (plugin Advanced Page Visit Counter) 35 route TANPA AUTH. Bocor analitik 12.254 views/21.810 record, mobile 2.917 visitor, Malang 4.681. Endpoint tulis+reset_everything reachable (stored XSS + hapus data). PHP 7.4.33 EOL. Laporan: 03-MISI/Findings/PENTEST-SMPN13-MALANG-2026-10-21.md --topic security",
     "from": "kali",
     "created": "2026-10-21T00:32:23.408118"
+  },
+  {
+    "id": "B-20261021012821",
+    "type": "info",
+    "topic": null,
+    "message": "[MALANG FINAL] Sweep BAC selesai 6 sekolah: HANYA SMPN13 bocor (apvc/v1, 22 endpoint, 21.810 record analytics visitor). Semua namespace lain terkunci. WAF map: SMAN3+Kartika41=Cloudflare, SKKK=Hostinger CDN, SMPN13=Wordfence 9.0.1+PHP 7.4.33 EOL, SMAN1=Imunify360. CF7 tanpa upload field. HexStrike MCP aktif 150 tool. Laporan: PENTEST-SMPN13-MALANG-2026-10-21.md + RECON-SEKOLAH-MALANG-2026-10-20.md --topic security",
+    "from": "kali",
+    "created": "2026-10-21T01:28:21.699357"
   }
 ]
